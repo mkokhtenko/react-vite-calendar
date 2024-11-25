@@ -1,8 +1,9 @@
-import { FC, useState } from 'react'
-import { Header } from 'antd/es/layout/layout'
-import type { MenuProps } from 'antd'
-import { Menu, Row } from 'antd'
-import { Link } from 'react-router-dom'
+import { FC, useState } from 'react';
+import { Header } from 'antd/es/layout/layout';
+import type { MenuProps } from 'antd';
+import { Menu, Row } from 'antd';
+import { Link } from 'react-router-dom';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -25,28 +26,29 @@ const privateItems: MenuItem[] = [
 ];
 
 export const Navbar: FC = () => {
-      const [current, setCurrent] = useState('login');
+  const [current, setCurrent] = useState('login');
 
-      const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click ', e);
-        setCurrent(e.key);
-      };
-      
-      const auth = false;
+  const onClick: MenuProps['onClick'] = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+  };
+
+  const { isAuth } = useTypedSelector((state) => state.auth);
+
   return (
     <Header>
       <Row justify="end">
-        {auth && <div style={{ color: 'white' }}>Username</div>}
+        {isAuth && <div style={{ color: 'white' }}>Username</div>}
         <Menu
           onClick={onClick}
           selectedKeys={[current]}
           theme="dark"
           mode="horizontal"
-          items={auth ? privateItems : publicItems}
+          items={isAuth ? privateItems : publicItems}
           selectable={false}
           disabledOverflow
         />
       </Row>
     </Header>
   );
-}
+};

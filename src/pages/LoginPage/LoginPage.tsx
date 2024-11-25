@@ -1,7 +1,12 @@
+import { Layout, Row } from 'antd'
 import React, {FC} from 'react'
 
 export const LoginPage: FC = () => {
   return (
-    <div>Main Page</div>
+    <Layout>
+       <Row justify="center" align="middle" className='h100'>
+        test
+       </Row>
+    </Layout>
   )
 }

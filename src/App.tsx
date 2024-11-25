@@ -3,10 +3,12 @@ import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { EventPage } from './pages/EventPage/EventPage';
 import { Navbar } from './components/shared';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 export default function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<LoginPage />} />
@@ -15,7 +17,7 @@ export default function App() {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
-    </div>
+    </Provider>
   );
 }
 
