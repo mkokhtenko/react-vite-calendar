@@ -20,6 +20,10 @@ const publicItems: MenuItem[] = [
 
 const privateItems: MenuItem[] = [
   {
+    label: <Link to="event">Event</Link>,
+    key: 'event',
+  },
+  {
     label: <Link to="">Log out</Link>,
     key: 'log out',
   },

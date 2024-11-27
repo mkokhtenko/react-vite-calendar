@@ -1,11 +1,12 @@
 import { Layout, Row } from 'antd'
-import React, {FC} from 'react'
+import {FC} from 'react'
+import { LoginForm } from '../../components/shared'
 
 export const LoginPage: FC = () => {
   return (
     <Layout>
        <Row justify="center" align="middle" className='h100'>
-        test
+        <LoginForm />
        </Row>
     </Layout>
   )
