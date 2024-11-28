@@ -1,4 +1,4 @@
-import { IUser } from "../../../models/Iuser";
+import { IUser } from "../../../models/IUser";
 import { AuthActionEnum, SetAuthAction, SetUserAction, SetIsLoadingAction, SetErrorAction } from "./types";
 import { AppDispatch } from "../../store";
 import axios from "axios";
@@ -32,6 +32,10 @@ export const AuthActionCreators = {
         }
 
     },
-    logout: (username: string, password: string) => async (dispatch: AppDispatch) => {
+    logout: () => async (dispatch: AppDispatch) => {
+        localStorage.removeItem('auth');
+        localStorage.removeItem('username'); 
+        dispatch(AuthActionCreators.setUser({} as IUser));
+        dispatch(AuthActionCreators.setIsAuth(false));
     }
 }

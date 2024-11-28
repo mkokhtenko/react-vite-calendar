@@ -1,5 +1,5 @@
 import { AuthAction, AuthActionEnum } from "./types";
-import { IUser } from "../../../models/Iuser";
+import { IUser } from "../../../models/IUser";
 
 const initialState = {
     isAuth: false,

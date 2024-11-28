@@ -6,8 +6,21 @@ import { Navbar } from './components/shared';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { PrivateRoutes } from './components/shared';
+import { useEffect } from 'react';
+import { useActions } from './hooks/useActions';
+import { IUser } from './models/IUser';
 
 export default function App() {
+
+  const {setIsAuth, setUser} = useActions();
+
+  useEffect(() => {
+    if (localStorage.getItem('auth')) {
+      setUser({ username: localStorage.getItem('username') || '' } as IUser);
+      setIsAuth(true);
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <Routes>

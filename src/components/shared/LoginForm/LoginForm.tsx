@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { rules } from '../../../utlis/rules';
-import { useDispatch } from 'react-redux';
-import { AuthActionCreators } from '../../../store/reducers/auth/action-creators';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { useActions } from '../../../hooks/useActions';
+import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate
 
 type FieldType = {
   username?: string;
@@ -12,21 +12,27 @@ type FieldType = {
   remember?: string;
 };
 
-// const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-//   console.log('Success:', values);
-// }
-
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
 export const LoginForm: FC = () => {
-  const dispatch = useDispatch();
-  const { error, isLoading } = useTypedSelector((state) => state.auth);
+  const { error, isLoading, isAuth } = useTypedSelector((state) => state.auth);
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const { login } = useActions();
+  const navigate = useNavigate(); // Инициализируем хук useNavigate
 
   const submit = () => {
-    dispatch(AuthActionCreators.login('test', '123'));
+    login(username, password);
   };
+
+  // Выполняем переход на /event, если пользователь авторизован
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/event'); // Переход на /event
+    }
+  }, [isAuth, navigate]);
 
   return (
     <Form
@@ -48,14 +54,14 @@ export const LoginForm: FC = () => {
         label="Username"
         name="username"
         rules={[rules.required('Please input your username!')]}>
-        <Input />
+        <Input value={username} onChange={(e) => setUsername(e.target.value)} />
       </Form.Item>
 
       <Form.Item<FieldType>
         label="Password"
         name="password"
         rules={[rules.required('Please input your password!')]}>
-        <Input.Password />
+        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
       </Form.Item>
 
       <Form.Item<FieldType> name="remember" valuePropName="checked" label={null}>
