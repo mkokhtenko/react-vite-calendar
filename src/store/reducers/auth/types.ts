@@ -27,7 +27,6 @@ export interface SetErrorAction {
     payload: string;
 }
 
-// Объединение всех типов действий
 export type AuthAction =
     | SetUserAction
     | SetAuthAction

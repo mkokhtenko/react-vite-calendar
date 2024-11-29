@@ -4,7 +4,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { rules } from '../../../utlis/rules';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { useActions } from '../../../hooks/useActions';
-import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate
+import { useNavigate } from 'react-router-dom';
 
 type FieldType = {
   username?: string;
@@ -21,16 +21,15 @@ export const LoginForm: FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { login } = useActions();
-  const navigate = useNavigate(); // Инициализируем хук useNavigate
+  const navigate = useNavigate();
 
   const submit = () => {
     login(username, password);
   };
 
-  // Выполняем переход на /event, если пользователь авторизован
   useEffect(() => {
     if (isAuth) {
-      navigate('/event'); // Переход на /event
+      navigate('/event');
     }
   }, [isAuth, navigate]);
 
