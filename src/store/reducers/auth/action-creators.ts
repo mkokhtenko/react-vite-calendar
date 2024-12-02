@@ -17,9 +17,9 @@ export const AuthActionCreators = {
                 const mockUser = response.data.find(user => user.username === username && user.password === password)
                 if (mockUser) {
                     localStorage.setItem('auth', 'true');
-                    localStorage.setItem('username ', mockUser.username);
-                    dispatch(AuthActionCreators.setIsAuth(true));
+                    localStorage.setItem('username', mockUser.username);
                     dispatch(AuthActionCreators.setUser(mockUser));
+                    dispatch(AuthActionCreators.setIsAuth(true));
                 } else {
                     dispatch(AuthActionCreators.setError('Not valid login or password '))
                 }

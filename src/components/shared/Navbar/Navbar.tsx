@@ -49,7 +49,7 @@ export const Navbar: FC = () => {
   return (
     <Header>
       <Row justify="end">
-        {isAuth && <div style={{ color: 'white' }}>{ user.username }</div>}
+        {isAuth && <div style={{ color: 'white', paddingRight: '14px' }}>{ user.username }</div>}
         <Menu
           onClick={onClick}
           selectedKeys={[currentKey]}

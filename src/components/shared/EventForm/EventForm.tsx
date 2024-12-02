@@ -9,11 +9,11 @@ import { formatDate } from '../../../utlis/date';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 interface EventFormProps {
-  guests: IUser[];
+  guests: IUser[],
+  submit: (event: IEvent) => void
 }
 
 export const EventForm: FC<EventFormProps> = (props: PropsWithChildren<EventFormProps>) => {
-
   const { user } = useTypedSelector((state) => state.auth);
 
   const [event, setEvent] = useState<IEvent>({
@@ -25,13 +25,13 @@ export const EventForm: FC<EventFormProps> = (props: PropsWithChildren<EventForm
 
   const selectDate = (date: Moment | null) => {
     if (date) {
-      setEvent({ ...event,  });
-      console.log(formatDate(date.toDate()));
+      const formattedDate = formatDate(date.toDate());
+      setEvent({ ...event, date: formattedDate });
     }
   };
 
-  const submitForm = (event: IEvent) => {
-    console.log({...event, author: user.username});
+  const submitForm = () => {
+    props.submit({ ...event, author: user.username });
   };
 
   return (
